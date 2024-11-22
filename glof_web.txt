@@ -1,0 +1,21 @@
+grid 1 :water level sensor(radar)
+glacial crack(sound sensor)
+in-water sensor(sonar)
+
+
+
+grid 2:FOR WEATHER STATION
+rainfall, snowfall
+temperature , pressure
+wind direction and wind speed 
+
+
+grid 3:energy generation (solar panel)
+
+
+grid 4:satellite images 
+
+
+the main page will consist of 4 grids (modals) - on clicking each grid the respective real time analysis pops up for each subgroup
+like if i click grid 1 then i will get a pop up consisting of 3 boxes (water level, glacial crack, in-water)
+

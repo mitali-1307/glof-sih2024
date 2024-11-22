@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glacial Lake Outburst Flood (GLOF) Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming"></script>
+    <script src="weatherStation.js"></script>
+</head>
+<body>
+    <!-- Sub-header Section -->
+    <div class="sub-header">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Dashboard</a>
+    </div>    
+    <header>
+        <h1>Glacial Lake Outburst Flood (GLOF) Monitoring Dashboard</h1>
+        <p>Real-time monitoring of glacial lake conditions to predict potential outburst floods.</p>
+        <div class="warning">
+            <p><strong>Warning:</strong> This area has a high risk of glacial lake outburst flood. Please take necessary precautions.</p>
+            <p><strong>Current Location:</strong> <span id="location">Fetching location...</span></p>
+        </div>
+    </header>
+
+    <div class="dashboard">
+        <!-- Grid 1: Advanced Glacial Lake Surveillance -->
+        <div class="grid" id="grid1">
+            <h2>Advanced Glacial Lake Surveillance</h2>
+            <ul>
+                <li id="waterLevel">Water Level Sensor: Loading...</li>
+                <li id="glacialCrack">Glacial Crack Sensor: Loading...</li>
+                <li id="inWaterSensor">In-Water Sensor: Loading...</li>
+            </ul>
+        </div>
+
+        <!-- Grid 2: Weather Station -->
+        <div class="grid" id="grid2">
+            <h2><a href="weatherStation.html" style="color: #F1C40F; text-decoration: none;">Go to Weather Station Dashboard</a></h2>
+            <div class="weather-container">
+                <p>Click to view real-time weather data graphs.</p>
+            </div>
+        </div>
+
+        <!-- Grid 3: Energy Generation -->
+        <div class="grid" id="grid3">
+            <h2>Energy Generation</h2>
+            <canvas id="energyChart"></canvas>
+        </div>
+
+        <!-- Grid 4: Satellite Images -->
+        <div class="grid" id="grid4">
+            <h2>Satellite Images</h2>
+            <div class="satellite-image">
+                <img id="satelliteImage" src="" alt="Satellite Image" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic Energy Generation Chart (random fluctuations)
+        const energyData = [];
+        const maxDataPoints = 20; // Limit the data to the last 20 points
+        const updateInterval = 2000; // Update every 2 seconds
+
+        // Initialize Energy Chart
+        window.onload = () => {
+            const energyChartCtx = document.getElementById('energyChart').getContext('2d');
+            window.energyChart = new Chart(energyChartCtx, {
+                type: 'line',
+                data: {
+                    labels: energyData.map((_, index) => index),
+                    datasets: [{
+                        label: 'Energy Generation',
+                        data: energyData,
+                        borderColor: 'blue',
+                        borderWidth: 2,
+                        fill: false,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                        },
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+
+            simulateEnergyData();
+            simulateSatelliteImages();
+            simulateWeatherData();
+            simulateSensorData();
+            displayRandomLocation();
+        };
+
+        // Simulate Energy Data and Update Chart
+        function simulateEnergyData() {
+            setInterval(() => {
+                const randomFluctuation = Math.random() * 10 - 5;
+                const lastEnergyValue = energyData[energyData.length - 1] || 50;
+                const newEnergyValue = lastEnergyValue + randomFluctuation;
+
+                if (energyData.length > maxDataPoints) energyData.shift();
+                energyData.push(newEnergyValue);
+
+                if (window.energyChart) {
+                    window.energyChart.data.labels = energyData.map((_, index) => index);
+                    window.energyChart.data.datasets[0].data = energyData;
+                    window.energyChart.update();
+                }
+            }, updateInterval);
+        }
+
+        // Simulate Satellite Images
+        const satelliteImages = [
+            'https://www.hindustantimes.com/ht-img/img/2024/04/24/550x309/INDIA-FLOODS-SATELLITE-1_1696655449977_1713973000063.JPG',
+            'https://u4d2z7k9.rocketcdn.me/wp-content/uploads/2020/10/46500768681_c1736d81e5_c.jpg',
+            'https://pub.mdpi-res.com/remotesensing/remotesensing-15-01941/article_deploy/html/images/remotesensing-15-01941-g009.png?1680747920',
+            'https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2023/10/sikkim-ff2.png',
+            'https://media.wired.com/photos/6537130c74b5757f9c94430d/4:3/w_2068,h_1551,c_limit/india-himalyas-science-2T0W37B.jpg',
+            'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/sikkim-flood-052859376-16x9.jpg?VersionId=SmzwTNsAJf43sCVFzNKdYLreH1CMRjth'
+        ];
+
+        function simulateSatelliteImages() {
+            setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * satelliteImages.length);
+                document.getElementById('satelliteImage').src = satelliteImages[randomIndex];
+            }, updateInterval);
+        }
+
+        // Simulate Weather Data
+        /*function simulateWeatherData() {
+            setInterval(() => {
+                document.getElementById('temperature').textContent = (Math.random() * 30).toFixed(2) + ' °C';
+                document.getElementById('pressure').textContent = (Math.random() * 20 + 980).toFixed(2) + ' hPa';
+                document.getElementById('humidity').textContent = (Math.random() * 100).toFixed(2) + ' %';
+                document.getElementById('altitude').textContent = (Math.random() * 5000).toFixed(2) + ' m';
+                document.getElementById('windDirection').textContent = Math.floor(Math.random() * 360) + '°';
+                document.getElementById('windSpeed').textContent = (Math.random() * 20).toFixed(2) + ' km/h';
+            }, updateInterval);
+        }*/
+
+        // Simulate Sensor Data
+        function simulateSensorData() {
+            setInterval(() => {
+                document.getElementById('waterLevel').textContent = 'Water Level Sensor: ' + (Math.random() * 100).toFixed(2) + ' cm';
+                document.getElementById('glacialCrack').textContent = 'Glacial Crack Sensor: ' + (Math.random() * 50).toFixed(2) + ' mm displacement';
+                document.getElementById('inWaterSensor').textContent = 'In-Water Sensor: ' + (Math.random() * 20).toFixed(2) + ' m';
+            }, updateInterval);
+        }
+
+        // Display Random Indian Location
+        const locations = [
+            'Shimla, Himachal Pradesh', 'Leh, Ladakh', 'Darjeeling, West Bengal', 'Munnar, Kerala', 'Nainital, Uttarakhand'
+        ];
+
+        function displayRandomLocation() {
+            const randomIndex = Math.floor(Math.random() * locations.length);
+            document.getElementById('location').textContent = locations[randomIndex];
+        }
+    </script>
+</body>
+</html>

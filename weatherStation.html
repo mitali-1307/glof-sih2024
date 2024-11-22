@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Station Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background-color: #2C3E50; /* Dark Slate Blue */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            background-color: #2C3E50; /* Dark Slate Blue (Solid color) */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            border-bottom: 4px solid #F39C12;
+            color: #ECF0F1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #BDC3C7;
+        }
+
+        header a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #F1C40F;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        header a:hover {
+            color: #F39C12;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chart-container {
+            background: #34495E; /* Soft Dark Grey */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .chart-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ECF0F1;
+        }
+
+        canvas {
+            width: 100%;
+            height: 250px;
+            max-height: 300px;
+            border-radius: 8px;
+            background-color: #BDC3C7; /* Light Grey for background */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weather Station Dashboard</h1>
+        <p>Real-time dynamic graphs for weather parameters.</p>
+        <a href="index.html">&#8592; Back to Main Dashboard</a>
+    </header>
+
+    <div class="dashboard">
+        <div class="chart-container">
+            <h3>Temperature</h3>
+            <canvas id="temperatureChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Pressure</h3>
+            <canvas id="pressureChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Humidity</h3>
+            <canvas id="humidityChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Altitude</h3>
+            <canvas id="altitudeChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Wind Direction</h3>
+            <canvas id="windDirectionChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Wind Speed</h3>
+            <canvas id="windSpeedChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate random data
+        function getRandomData(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Initialize charts with dynamic updates
+        const createChart = (ctx, label, minY, maxY, borderColor) => {
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: 20 }, (_, i) => i),
+                    datasets: [{
+                        label: label,
+                        data: Array.from({ length: 20 }, () => getRandomData(minY, maxY)),
+                        borderColor: borderColor,
+                        borderWidth: 2,
+                        backgroundColor: borderColor.replace('1)', '0.3)'),  // Lightened background color
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { type: 'linear', position: 'bottom' },
+                        y: { min: minY, max: maxY }
+                    }
+                }
+            });
+        };
+
+        const updateChart = (chart, minY, maxY) => {
+            setInterval(() => {
+                if (chart.data.labels.length > 20) chart.data.labels.shift();
+                chart.data.labels.push(chart.data.labels[chart.data.labels.length - 1] + 1);
+
+                if (chart.data.datasets[0].data.length > 20) chart.data.datasets[0].data.shift();
+                chart.data.datasets[0].data.push(getRandomData(minY, maxY));
+
+                chart.update();
+            }, 2000);
+        };
+
+        // Charts for different weather parameters
+        const temperatureChart = createChart(document.getElementById('temperatureChart').getContext('2d'), 'Temperature (°C)', -10, 40, '#F1C40F');
+        const pressureChart = createChart(document.getElementById('pressureChart').getContext('2d'), 'Pressure (hPa)', 900, 1100, '#8E44AD');
+        const humidityChart = createChart(document.getElementById('humidityChart').getContext('2d'), 'Humidity (%)', 0, 100, '#3498DB');
+        const altitudeChart = createChart(document.getElementById('altitudeChart').getContext('2d'), 'Altitude (m)', 0, 5000, '#F39C12');
+        const windDirectionChart = createChart(document.getElementById('windDirectionChart').getContext('2d'), 'Wind Direction (°)', 0, 360, '#1ABC9C');
+        const windSpeedChart = createChart(document.getElementById('windSpeedChart').getContext('2d'), 'Wind Speed (km/h)', 0, 50, '#E74C3C');
+
+        // Update charts dynamically
+        updateChart(temperatureChart, -10, 40);
+        updateChart(pressureChart, 900, 1100);
+        updateChart(humidityChart, 0, 100);
+        updateChart(altitudeChart, 0, 5000);
+        updateChart(windDirectionChart, 0, 360);
+        updateChart(windSpeedChart, 0, 50);
+    </script>
+</body>
+</html>

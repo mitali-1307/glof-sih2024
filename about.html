@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Sub-header Section */
+        .sub-header {
+            background-color: #004e7c;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .sub-header a {
+            color: #f39c12;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .sub-header a:hover {
+            color: #e67e22;
+        }
+
+        /* About Header Section */
+        .about-header {
+            background-color: #005b8c;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .about-header h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .about-header p {
+            font-size: 18px;
+            color: #ecf0f1;
+            line-height: 1.6;
+        }
+
+        /* About Content Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content h2 {
+            font-size: 28px;
+            color: #005b8c;
+            margin-top: 20px;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Team Section */
+        .team {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            text-align: center;
+            background-color: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            border: 1px solid #dcdcdc;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            background-color: #f39c12;
+        }
+
+        .team-member h3 {
+            font-size: 22px;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid #f39c12;
+            transition: border-color 0.3s ease;
+        }
+
+        .team-member img:hover {
+            border-color: #e67e22;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #004e7c;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .team {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Mentors Section */
+.mentors-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.mentor {
+    text-align: center;
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid #dcdcdc;
+}
+
+.mentor:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    background-color: #f39c12;
+}
+
+.mentor h3 {
+    font-size: 22px;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.mentor p {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+.mentor img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 3px solid #f39c12;
+    transition: border-color 0.3s ease;
+}
+
+.mentor img:hover {
+    border-color: #e67e22;
+}
+/* Roadmap Section */
+.roadmap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    position: relative;
+}
+
+.roadmap-step {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #dcdcdc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    position: relative;
+}
+
+.roadmap-icon {
+    font-size: 40px;
+    color: #f39c12;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 22px;
+    color: #005b8c;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+
+        /* Roadmap Section */
+        .roadmap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .roadmap-step {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 2px solid #dcdcdc;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            position: relative;
+        }
+
+        .roadmap-icon {
+            font-size: 40px;
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+
+        .roadmap-arrow {
+            font-size: 40px;
+            color: #dcdcdc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .team {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .roadmap {
+                flex-direction: column;
+            }
+
+            .roadmap-step {
+                width: 80%;
+            }
+
+            .roadmap-arrow {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sub-header Section -->
+    <div class="sub-header">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Dashboard</a>
+    </div>
+    <!-- About Section -->
+    <header class="about-header">
+        <h1>About Glacial Lake Outburst Flood (GLOF) Monitoring</h1>
+        <p>This project focuses on real-time monitoring of glacial lakes to predict potential outburst floods (GLOF), which can pose a significant threat to surrounding communities and infrastructure.</p>
+    </header>
+    <div class="roadmap-container">
+    <div class="roadmap">
+        <div class="roadmap-step">
+            <div class="roadmap-icon">🎯</div>
+            <h3>Our Aim</h3>
+            <p>We aim to safeguard communities through predictive analysis and real-time monitoring of glacial lake outburst floods (GLOFs).</p>
+        </div>
+
+        <div class="roadmap-arrow">➡️</div>
+
+        <div class="roadmap-step">
+            <div class="roadmap-icon">🔧</div>
+            <h3>What We Do</h3>
+            <p>Using IoT devices, AI-driven analytics, and remote sensing data, we provide real-time monitoring of glacial lakes to predict outburst scenarios and prevent disasters.</p>
+        </div>
+
+        <div class="roadmap-arrow">➡️</div>
+
+        <div class="roadmap-step">
+            <div class="roadmap-icon">💡</div>
+            <h3>Our Team</h3>
+            <p>Our team is dedicated to applying cutting-edge technology and expertise to ensure effective monitoring and mitigation of GLOF risks.</p>
+        </div>
+    </div>
+</div>
+
+    
+    <section class="about-content">
+        <h2 style="text-align: center;">Our Team</h2>
+        <div class="team">
+            <!-- Team members -->
+            <div class="team-member">
+                <img src="team_images/toshik.jpg" alt="Toshik Soni">
+                <h3>Toshik Soni</h3>
+                <p>Project Lead & IoT Specialist</p>
+                <p><strong>Stream:</strong> Computer Science Engineering</p>
+            </div>
+            <div class="team-member">
+                <img src="team_images/mitali.jpg" alt="Mitali Thapa">
+                <h3>Mitali Thapa</h3>
+                <p>AI/ML Specialist</p>
+                <p><strong>Stream:</strong> Computer Science Engineering</p>
+            </div>
+            <div class="team-member">
+                <img src="team_images/simran.jpg" alt="Simran Mohanty">
+                <h3>Simran Mohanty</h3>
+                <p>Web Developer</p>
+                <p><strong>Stream:</strong> Computer Science Engineering</p>
+            </div>
+            <div class="team-member">
+                <img src="team_images/bibek.jpg" alt="Bibek Jaishi">
+                <h3>Bibek Jaishi</h3>
+                <p>IoT Specialist</p>
+                <p><strong>Stream:</strong> Electronics & Communication Engineering</p>
+            </div>
+            <div class="team-member">
+                <img src="team_images/tauqeer.jpg" alt="Mohammad Tauqeer Raza">
+                <h3>Mohammed Tauqeer Raza</h3>
+                <p>3D Modeling Engineer</p>
+                <p><strong>Stream:</strong> Computer Science Engineering</p>
+            </div>
+            <div class="team-member">
+                <img src="team_images/dhruv.jpg" alt="Dhruv Lodha">
+                <h3>Dhruv Lodha</h3>
+                <p>Operations Assistant</p>
+                <p><strong>Stream:</strong> Computer Science Engineering</p>
+            </div>
+        </div>
+
+        <h2 style="text-align: center;">Our Mentors</h2>
+        <div class="mentors-container">
+            <!-- Mentor 1 -->
+            <div class="mentor">
+                <img src="team_images/mentor1.jpg" alt="Mentor 1">
+                <h3>Mr. Harsh Bansal</h3>
+                <p>Assistant Professor, CSE</p>
+                <p><strong>Expertise:</strong> Blockchain and Machine Learning </p>
+            </div>
+            
+            <!-- Mentor 2 -->
+            <div class="mentor">
+                <img src="team_images/mentor2.jpg" alt="Mentor 2">
+                <h3>Dr. Chandani Joshi</h3>
+                <p>Assistent Professor, CSE</p>
+                <p><strong>Expertise:</strong> Machine Learning and Data Analytics</p>
+            </div>
+        </div>        
+
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 GLOF Monitoring Project. All rights reserved.</p>
+    </footer>
+</body>
+</html>
